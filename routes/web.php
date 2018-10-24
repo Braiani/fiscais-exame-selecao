@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+Route::post('cadastrar', 'HomeController@store')->name('cadastrar');
+Route::post('buscar', 'HomeController@buscar')->name('buscar');
 
 
 Route::group(['prefix' => 'admin'], function () {

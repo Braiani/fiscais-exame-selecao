@@ -3,6 +3,7 @@
         <title>IFMS - Cadastro voluntários Exame de Seleção</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <link rel="shortcut icon" href="img/favicon_gov.ico" type="image/x-icon">
         <link rel="apple-touch-icon" href="img/touch_icon.png">
@@ -10,9 +11,12 @@
         <!-- Plone CSS - only for preview, will be removed in rules.xml -->
         <link media="screen" href="css/plone.css" type="text/css" rel="stylesheet" id="plone-css">
 
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+
         <!-- Theme CSS - only for preview, will be removed in rules and added in CSS registry -->
         <link media="all" href="css/main.css" type="text/css" rel="stylesheet" id="main-css">
         <link media="all" href="css/style.css" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
 
     <body>
@@ -73,24 +77,132 @@
                         <div id="portal-column-content" class="cell width-13 position-3">
                             <a name="acontent" id="acontent"></a>
                             <div id="main-content" class="">
-                                <div id="content">
-                                    <h1 id="parent-fieldname-title" class="documentFirstHeading" >
-                                        Formulário de Cadastro de interessados em trabalhar na aplicação da prova do Exame de Seleção 2018 <i>campus</i> Campo Grande
-                                    </h1>
-                                    <div id="content-core">
-                                        <p>
-                                            Obrigado pelo interesse em participar da aplicação da prova do exame de seleção 2018 do <i>Campus</i> Campo Grande.
-                                        </p>
-                                        <p>
-                                            O prazo para a inscrição expirou no dia <strong>10/11/2017</strong>.
-                                        </p>
-                                        <p>
-                                            Para quem se cadastrou, a resposta ocorrerá até o dia <strong>15/11/2017</strong>, portanto, fique atento a sua caixa de e-mails e telefone!
-                                        </p>
+                                <div class="container">
+                                    <div class="row">
+                                        <h2>
+                                            Formulário de Cadastro de interessados em trabalhar na aplicação da prova do Exame de Seleção 2019 <i>campus</i> Campo Grande
+                                        </h2>
+                                        <p>O valor da GECC será: </p>
+                                    </div>
+                                    <div class="row">
+                                        <form action="{{ route('cadastrar') }}" method="POST" class="form">
+                                            {{ csrf_field() }}
+                                            <fieldset>
+                                                <legend>1. Dados pessoais</legend>
+
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-3">
+                                                            <label for="cpf">CPF</label>
+                                                            <input id="cpf" name="cpf" placeholder="CPF" class="form-control" required="" type="text">
+                                                        </div>
+
+                                                        <div class="form-group col-sm-9">
+                                                            <label for="nome">Nome</label>
+                                                            <input id="nome" name="nome" placeholder="Nome" class="form-control" required="" type="text">
+                                                        </div>
+
+
+                                                        <div class="form-group col-sm-3">
+                                                            <label for="rg">RG (Número)</label>
+                                                            <input id="rg" name="rg" placeholder="RG (Número)" class="form-control" required="" type="text">
+                                                        </div>
+
+
+                                                        <div class="form-group col-sm-3">
+                                                            <label for="orgao_emissor">Órgão Emissor</label>
+                                                            <input id="orgao_emissor" name="orgao_emissor" placeholder="Órgão Emissor" class="form-control" required="" type="text">
+                                                        </div>
+
+                                                        <div class="form-group col-sm-6">
+                                                            <label for="pis">PIS</label>
+                                                            <input id="pis" name="pis" placeholder="PIS" class="form-control" required="" type="text">
+                                                        </div>
+
+
+                                                        <div class="form-group col-sm-3">
+                                                            <label for="telefone">Telefone</label>
+                                                            <input id="telefone" name="telefone" placeholder="Telefone" class="form-control" required="" type="text">
+                                                        </div>
+
+
+                                                        <div class="form-group col-sm-3">
+                                                            <div class="checkbox">
+                                                                <label for="servidor-0">
+                                                                    <input name="servidor" id="servidor" value="1" type="checkbox"> Servidor Público Federal?
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group col-sm-6">
+                                                            <div class="hidden">
+                                                                <label for="siape">SIAPE</label>
+                                                                <input id="siape" name="siape" placeholder="SIAPE" class="form-control" type="text">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                   <div class="row">
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="banco_id">Banco</label>
+                                                            <select id="banco_id" name="banco_id" class="form-control">
+                                                                @foreach ($bancos as $banco)
+                                                                <option value="{{ $banco->id }}">{{ $banco->cod_banco }} - {{ $banco->nome }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+
+                                                        <div class="form-group col-sm-3">
+                                                            <label for="agencia">Agência</label>
+                                                            <input id="agencia" name="agencia" placeholder="Agência" class="form-control" required="" type="text">
+                                                        </div>
+
+
+                                                        <div class="form-group col-sm-2">
+                                                            <label for="operacao">Operação</label>
+                                                            <input id="operacao" name="operacao" placeholder="Operação" class="form-control" type="text">
+                                                        </div>
+
+
+                                                        <div class="form-group col-sm-3">
+                                                            <label for="conta">Conta corrente</label>
+                                                            <input id="conta" name="conta" placeholder="Conta corrente" class="form-control" required="" type="text">
+                                                        </div>
+                                                   </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>2. Dados da aplicação da prova</legend>
+                                                <div class="row">
+                                                    <div class="form-group col-sm-3">
+                                                        <label for="ano">Ano</label>
+                                                        <select id="ano" name="ano" class="form-control">
+                                                            <option value="2019">Exame de seleção 2019</option>
+                                                            <option value="2018">Exame de seleção 2018</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-sm-3">
+                                                        <label for="local_prova_id">Local da prova</label>
+                                                        <select id="local_prova_id" name="local_prova_id" class="form-control">
+                                                            <option value="1">Local 1</option>
+                                                            <option value="2">Local 2</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend>3. Anexar arquivo</legend>
+                                                <div class="row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="arquivo">Arquivo</label>
+                                                        <input type="file" name="arquivo" id="arquivo" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <button type="submit" class="btn">Enviar cadastro</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                            <div id="viewlet-below-content"></div>
                         </div>
                     </div>
 
@@ -99,10 +211,6 @@
                 </div>
 
                 <div class="clear"></div>
-                <div id="voltar-topo">
-                    <a href="#wrapper">Voltar para o topo</a>
-                </div>
-
             </div>
 
             <!-- Footer -->
@@ -125,8 +233,11 @@
             </div>
             <!-- /Footer-->
             <script defer="defer" src="//barra.brasil.gov.br/barra.js" type="text/javascript"></script>
-
-
+            <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.inputmask.bundle.js') }}"></script>
+            <script src="{{ asset('js/blockUI.js') }}"></script>
+            <script src="{{ asset('js/app.js') }}"></script>
+            <script>$buscarCpf = "{{ route('buscar') }}";</script>
         </div>
     </body>
 </html>
