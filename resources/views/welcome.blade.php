@@ -1,3 +1,6 @@
+@php
+    $data = \Carbon\Carbon::now();
+@endphp
 <html>
     <head>
         <title>IFMS - Cadastro voluntários Exame de Seleção</title>
@@ -46,7 +49,7 @@
                     <div id="logo">
                         <a id="portal-logo" title="Exame de Seleção 2018" href="http://www.ifms.edu.br/exame">
                             <span id="portal-title-1">Instituto Federal de Mato Grosso do Sul</span>
-                            <h1 id="portal-title" class="corto">Exame de Seleção 2019</h1>
+                            <h1 id="portal-title" class="corto">Exame de Seleção {{ isset($exame) ? $exame->ano : $data->format('Y') }}</h1>
                             <span id="portal-description"></span>
                         </a>
                     </div>
@@ -99,9 +102,9 @@
                                 <div class="container">
                                     <div class="row">
                                         <h2>
-                                            Formulário de Cadastro de interessados em trabalhar na aplicação da prova do Exame de Seleção 2019 <i>campus</i> Campo Grande
+                                            Formulário de Cadastro de interessados em trabalhar na aplicação da prova do Exame de Seleção {{ isset($exame) ? $exame->ano : $data->format('Y') }} <i>campus</i> Campo Grande
                                         </h2>
-                                        <p>O valor da GECC será: </p>
+                                        <p>O valor da GECC será: {{ isset($exame) ? 'R$ ' . $exame->valor_gecc . ' por hora' : 'Não definido' }}</p>
                                     </div>
                                     <div class="row">
                                         <form action="{{ route('cadastrar') }}" method="POST" class="form">
@@ -110,37 +113,37 @@
                                                 <legend>1. Dados pessoais</legend>
 
                                                     <div class="row">
-                                                        <div class="form-group col-sm-3">
+                                                        <div class="form-group col-sm-3 @if($errors->has('cpf')) has-feedback has-error @endif">
                                                             <label for="cpf">CPF</label>
-                                                            <input id="cpf" name="cpf" placeholder="CPF" class="form-control" required="" type="text">
+                                                            <input id="cpf" name="cpf" placeholder="CPF" class="form-control" value="{{ old('cpf') }}" required="" type="text">
                                                         </div>
 
-                                                        <div class="form-group col-sm-9">
+                                                        <div class="form-group col-sm-9 @if($errors->has('nome')) has-feedback has-error @endif"">
                                                             <label for="nome">Nome</label>
-                                                            <input id="nome" name="nome" placeholder="Nome" class="form-control" required="" type="text">
+                                                            <input id="nome" name="nome" placeholder="Nome" class="form-control" value="{{ old('nome') }}" required="" type="text">
                                                         </div>
 
 
-                                                        <div class="form-group col-sm-3">
+                                                        <div class="form-group col-sm-3 @if($errors->has('rg')) has-feedback has-error @endif"">
                                                             <label for="rg">RG (Número)</label>
-                                                            <input id="rg" name="rg" placeholder="RG (Número)" class="form-control" required="" type="text">
+                                                            <input id="rg" name="rg" placeholder="RG (Número)" class="form-control" value="{{ old('rg') }}" required="" type="text">
                                                         </div>
 
 
-                                                        <div class="form-group col-sm-3">
+                                                        <div class="form-group col-sm-3 @if($errors->has('orgao_emissor')) has-feedback has-error @endif"">
                                                             <label for="orgao_emissor">Órgão Emissor</label>
-                                                            <input id="orgao_emissor" name="orgao_emissor" placeholder="Órgão Emissor" class="form-control" required="" type="text">
+                                                            <input id="orgao_emissor" name="orgao_emissor" placeholder="Órgão Emissor" value="{{ old('orgao_emissor') }}" class="form-control" required="" type="text">
                                                         </div>
 
-                                                        <div class="form-group col-sm-6">
+                                                        <div class="form-group col-sm-6 @if($errors->has('pis')) has-feedback has-error @endif">
                                                             <label for="pis">PIS</label>
-                                                            <input id="pis" name="pis" placeholder="PIS" class="form-control" required="" type="text">
+                                                            <input id="pis" name="pis" placeholder="PIS" class="form-control" value="{{ old('pis') }}" required="" type="text">
                                                         </div>
 
 
-                                                        <div class="form-group col-sm-3">
+                                                        <div class="form-group col-sm-3 @if($errors->has('telefone')) has-feedback has-error @endif"">
                                                             <label for="telefone">Telefone</label>
-                                                            <input id="telefone" name="telefone" placeholder="Telefone" class="form-control" required="" type="text">
+                                                            <input id="telefone" name="telefone" placeholder="Telefone" value="{{ old('telefone') }}" class="form-control" required="" type="text">
                                                         </div>
 
 
@@ -152,16 +155,16 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group col-sm-6">
+                                                        <div class="form-group col-sm-6 @if($errors->has('siape')) has-feedback has-error @endif"">
                                                             <div class="hidden">
                                                                 <label for="siape">SIAPE</label>
-                                                                <input id="siape" name="siape" placeholder="SIAPE" class="form-control" type="text">
+                                                                <input id="siape" name="siape" placeholder="SIAPE" value="{{ old('siape') }}" class="form-control" type="text">
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                    <div class="row">
-                                                        <div class="form-group col-sm-4">
+                                                        <div class="form-group col-sm-4 @if($errors->has('banco_id')) has-feedback has-error @endif"">
                                                             <label for="banco_id">Banco</label>
                                                             <select id="banco_id" name="banco_id" class="form-control">
                                                                 @foreach ($bancos as $banco)
@@ -171,39 +174,40 @@
                                                         </div>
 
 
-                                                        <div class="form-group col-sm-3">
+                                                        <div class="form-group col-sm-3 @if($errors->has('agencia')) has-feedback has-error @endif"">
                                                             <label for="agencia">Agência</label>
-                                                            <input id="agencia" name="agencia" placeholder="Agência" class="form-control" required="" type="text">
+                                                            <input id="agencia" name="agencia" placeholder="Agência" value="{{ old('agencia') }}" class="form-control" required="" type="text">
                                                         </div>
 
 
                                                         <div class="form-group col-sm-2">
                                                             <label for="operacao">Operação</label>
-                                                            <input id="operacao" name="operacao" placeholder="Operação" class="form-control" type="text">
+                                                            <input id="operacao" name="operacao" placeholder="Operação" value="{{ old('operacao') }}" class="form-control" type="text">
                                                         </div>
 
 
-                                                        <div class="form-group col-sm-3">
+                                                        <div class="form-group col-sm-3 @if($errors->has('conta')) has-feedback has-error @endif"">
                                                             <label for="conta">Conta corrente</label>
-                                                            <input id="conta" name="conta" placeholder="Conta corrente" class="form-control" required="" type="text">
+                                                            <input id="conta" name="conta" placeholder="Conta corrente" value="{{ old('conta') }}" class="form-control" required="" type="text">
                                                         </div>
                                                    </div>
                                             </fieldset>
+                                            @if (isset($exame))
                                             <fieldset>
                                                 <legend>2. Dados da aplicação da prova</legend>
                                                 <div class="row">
                                                     <div class="form-group col-sm-3">
                                                         <label for="ano">Ano</label>
                                                         <select id="ano" name="ano" class="form-control">
-                                                            <option value="2019">Exame de seleção 2019</option>
-                                                            <option value="2018">Exame de seleção 2018</option>
+                                                            <option value="{{ $exame->ano }}">Exame de seleção {{ $exame->ano }}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-sm-3">
                                                         <label for="local_prova_id">Local da prova</label>
                                                         <select id="local_prova_id" name="local_prova_id" class="form-control">
-                                                            <option value="1">Local 1</option>
-                                                            <option value="2">Local 2</option>
+                                                            @foreach ($exame->localProva as $local)
+                                                            <option value="{{ $local->id }}">{{ $local->escola }}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -213,10 +217,11 @@
                                                 <div class="row">
                                                     <div class="form-group col-sm-6">
                                                         <label for="arquivo">Arquivo</label>
-                                                        <input type="file" name="arquivo" id="arquivo" class="form-control" required>
+                                                        <input type="file" name="arquivo" id="arquivo" class="form-control" >
                                                     </div>
                                                 </div>
                                             </fieldset>
+                                            @endif
                                             <button type="submit" class="btn">Enviar cadastro</button>
                                         </form>
                                     </div>

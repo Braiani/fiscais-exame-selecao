@@ -6,20 +6,21 @@ use Illuminate\Http\Request;
 use App\Banco;
 use App\Exame;
 use App\Candidato;
+use App\Http\Requests\FormRequestValidation;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $bancos = Banco::orderBy('cod_banco', 'asc')->get();
-        $exames = Exame::latest()->get();
+        $exame = Exame::formularioAtivo()->latest()->first();
         return view('welcome')->with([
             'bancos' => $bancos,
-            'exames' => $exames
+            'exame' => $exame
             ]);
     }
 
-    public function store(Request $request)
+    public function store(FormRequestValidation $request)
     {
         return $request;
     }
