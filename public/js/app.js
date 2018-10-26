@@ -22,30 +22,16 @@ $(document).ready(function(){
         verificarPreenchimento("#" + this.id);
     });
 
-    $('#servidor').on('change', function(){
-        if($(this).is(':checked')){
-            if ($('#siape').parent().hasClass('hidden')) {
-                $('#siape').parent().toggleClass('hidden');
+    $('input[name="servidor"]').on('change', function(){
+        if($(this).val() == 1){
+            if ($('#siape').attr('readonly')) {
+                $('#siape').removeAttr('readonly');
             }
         }else{
-            if (!$('#siape').parent().hasClass('hidden')) {
-                $('#siape').parent().toggleClass('hidden');
+            if (!$('#siape').attr('readonly')) {
+                $('#siape').attr('readonly', true);
             }
         }
-    });
-
-    $("#arquivo").on('change', function(){
-        var arquivo = this.value;
-        var extensao = (arquivo.substring(arquivo.lastIndexOf("."))).toLowerCase();
-        if (extensao !== ".pdf") {
-            alert("O formato do arquivo deve ser PDF!");
-            if (!$("#arquivo").parent().parent().hasClass("has-error")) {
-                $("#arquivo").parent().parent().addClass("has-error");
-            }
-        }else if ($("#arquivo").parent().parent().hasClass("has-error")) {
-            $("#arquivo").parent().parent().removeClass("has-error");
-        }
-        //alert(this.value);
     });
 
 
@@ -63,25 +49,41 @@ $(document).ready(function(){
                 cpf: numCpf
             },
             dataType: "json"
+        }).fail(function(){
+            alert('Um erro ocorreu!');
         }).done(function(resposta){
-            $.unblockUI();
-            console.log(resposta);
             if (resposta.error != 1) {
                 preencherInformacoes(resposta);
+            }else if (!$('#arquivo').attr('required')) {
+                $('#arquivo').attr('required', true);
             }
+        }).always(function(){
+            $.unblockUI();
         });
     }
 
     function preencherInformacoes (data){
         $('#nome').val(data.nome);
-        $('#rg').val(data.rg);
-        $('#orgao_emissor').val(data.orgao_emissor);
+        $('#identidade').val(data.identidade);
         $('#pis').val(data.pis);
         $('#telefone').val(data.telefone);
-        // $('#nome').val(data.nome); //Banco
+        $('#banco_id').val(data.banco_id);
         $('#agencia').val(data.agencia);
         $('#operacao').val(data.operacao);
         $('#conta').val(data.conta);
+        $('#email').val(data.email);
+        $('#arquivo').removeAttr('required');
+
+        if (data.servidor == 1) {
+            if (!$('#servidor-1').is(':checked')) {
+                $('#servidor-1').trigger('click');
+            }
+            $('#siape').val(data.siape);
+        }else{
+            if (!$('#servidor-0').is(':checked')) {
+                $('#servidor-0').trigger('click');
+            }
+        }
     }
 
     function verificarPreenchimento(id) {

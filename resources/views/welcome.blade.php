@@ -107,6 +107,17 @@
                                         <p>O valor da GECC será: {{ isset($exame) ? 'R$ ' . $exame->valor_gecc . ' por hora' : 'Não definido' }}</p>
                                     </div>
                                     <div class="row">
+                                        @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="row">
                                         <form action="{{ route('cadastrar') }}" method="POST" class="form">
                                             {{ csrf_field() }}
                                             <fieldset>
@@ -118,21 +129,15 @@
                                                             <input id="cpf" name="cpf" placeholder="CPF" class="form-control" value="{{ old('cpf') }}" required="" type="text">
                                                         </div>
 
-                                                        <div class="form-group col-sm-9 @if($errors->has('nome')) has-feedback has-error @endif"">
+                                                        <div class="form-group col-sm-9 @if($errors->has('nome')) has-feedback has-error @endif">
                                                             <label for="nome">Nome</label>
                                                             <input id="nome" name="nome" placeholder="Nome" class="form-control" value="{{ old('nome') }}" required="" type="text">
                                                         </div>
 
 
-                                                        <div class="form-group col-sm-3 @if($errors->has('rg')) has-feedback has-error @endif"">
-                                                            <label for="rg">RG (Número)</label>
-                                                            <input id="rg" name="rg" placeholder="RG (Número)" class="form-control" value="{{ old('rg') }}" required="" type="text">
-                                                        </div>
-
-
-                                                        <div class="form-group col-sm-3 @if($errors->has('orgao_emissor')) has-feedback has-error @endif"">
-                                                            <label for="orgao_emissor">Órgão Emissor</label>
-                                                            <input id="orgao_emissor" name="orgao_emissor" placeholder="Órgão Emissor" value="{{ old('orgao_emissor') }}" class="form-control" required="" type="text">
+                                                        <div class="form-group col-sm-3 @if($errors->has('identidade')) has-feedback has-error @endif">
+                                                            <label for="identidade">Documento de Idendidade</label>
+                                                            <input id="identidade" name="identidade" placeholder="Documento de Idendidade" class="form-control" value="{{ old('identidade') }}" required="" type="text">
                                                         </div>
 
                                                         <div class="form-group col-sm-6 @if($errors->has('pis')) has-feedback has-error @endif">
@@ -141,40 +146,52 @@
                                                         </div>
 
 
-                                                        <div class="form-group col-sm-3 @if($errors->has('telefone')) has-feedback has-error @endif"">
+                                                        <div class="form-group col-sm-3 @if($errors->has('telefone')) has-feedback has-error @endif">
                                                             <label for="telefone">Telefone</label>
                                                             <input id="telefone" name="telefone" placeholder="Telefone" value="{{ old('telefone') }}" class="form-control" required="" type="text">
                                                         </div>
 
 
                                                         <div class="form-group col-sm-3">
-                                                            <div class="checkbox">
+                                                            <label for="servidor">Servidor Público Federal?</label>
+                                                            <div class="radio @if($errors->has('servidor')) has-feedback has-error @endif">
+                                                                <label for="servidor-1">
+                                                                    <input name="servidor" id="servidor-1" value="1" type="radio"
+                                                                        @if(old('servidor')) checked @endif> Sim
+                                                                </label>
                                                                 <label for="servidor-0">
-                                                                    <input name="servidor" id="servidor" value="1" type="checkbox"> Servidor Público Federal?
+                                                                    <input name="servidor" id="servidor-0" value="0" type="radio"
+                                                                        @if(old('servidor') != null and !old('servidor')) checked @endif> Não
                                                                 </label>
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group col-sm-6 @if($errors->has('siape')) has-feedback has-error @endif"">
-                                                            <div class="hidden">
-                                                                <label for="siape">SIAPE</label>
-                                                                <input id="siape" name="siape" placeholder="SIAPE" value="{{ old('siape') }}" class="form-control" type="text">
-                                                            </div>
+                                                        <div class="form-group col-sm-2 @if($errors->has('siape')) has-feedback has-error @endif">
+                                                            <label for="siape">SIAPE</label>
+                                                            <input id="siape" name="siape" placeholder="SIAPE" value="{{ old('siape') }}"
+                                                                @if(!old('servidor')) readonly @endif class="form-control" type="text">
+                                                        </div>
+
+                                                        <div class="form-group col-sm-7 @if($errors->has('email')) has-feedback has-error @endif">
+                                                            <label for="email">E-mail</label>
+                                                            <input type="email" name="email" id="email" placeholder="E-mail" class="form-control" value="{{ old('email') }}" >
                                                         </div>
                                                     </div>
 
                                                    <div class="row">
-                                                        <div class="form-group col-sm-4 @if($errors->has('banco_id')) has-feedback has-error @endif"">
+                                                        <div class="form-group col-sm-4 @if($errors->has('banco_id')) has-feedback has-error @endif">
                                                             <label for="banco_id">Banco</label>
                                                             <select id="banco_id" name="banco_id" class="form-control">
                                                                 @foreach ($bancos as $banco)
-                                                                <option value="{{ $banco->id }}">{{ $banco->cod_banco }} - {{ $banco->nome }}</option>
+                                                                <option value="{{ $banco->id }}" @if(old('banco_id') == $banco->id) selected @endif>
+                                                                    {{ $banco->cod_banco }} - {{ $banco->nome }}
+                                                                </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
 
 
-                                                        <div class="form-group col-sm-3 @if($errors->has('agencia')) has-feedback has-error @endif"">
+                                                        <div class="form-group col-sm-3 @if($errors->has('agencia')) has-feedback has-error @endif">
                                                             <label for="agencia">Agência</label>
                                                             <input id="agencia" name="agencia" placeholder="Agência" value="{{ old('agencia') }}" class="form-control" required="" type="text">
                                                         </div>
@@ -186,7 +203,7 @@
                                                         </div>
 
 
-                                                        <div class="form-group col-sm-3 @if($errors->has('conta')) has-feedback has-error @endif"">
+                                                        <div class="form-group col-sm-3 @if($errors->has('conta')) has-feedback has-error @endif">
                                                             <label for="conta">Conta corrente</label>
                                                             <input id="conta" name="conta" placeholder="Conta corrente" value="{{ old('conta') }}" class="form-control" required="" type="text">
                                                         </div>
@@ -217,7 +234,10 @@
                                                 <div class="row">
                                                     <div class="form-group col-sm-6">
                                                         <label for="arquivo">Arquivo</label>
-                                                        <input type="file" name="arquivo" id="arquivo" class="form-control" >
+                                                        <input type="file" name="arquivo" id="arquivo" class="form-control" accept=".pdf,.jpg" required>
+                                                        <small id="arquivoHelText" class="text-muted">
+                                                            Arquivos aceitos: .pdf | .jpg
+                                                        </small>
                                                     </div>
                                                 </div>
                                             </fieldset>
