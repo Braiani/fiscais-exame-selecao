@@ -105,7 +105,7 @@ class DataTypesTableSeeder extends Seeder
                 'server_side' => 1,
                 'details' => '{"order_column":null,"order_display_column":null}',
                 'created_at' => '2018-10-25 03:00:14',
-                'updated_at' => '2018-10-25 03:54:34',
+                'updated_at' => '2018-10-27 01:49:09',
             ),
             5 => 
             array (
@@ -123,7 +123,7 @@ class DataTypesTableSeeder extends Seeder
                 'server_side' => 0,
                 'details' => '{"order_column":null,"order_display_column":null}',
                 'created_at' => '2018-10-25 03:03:04',
-                'updated_at' => '2018-10-25 03:54:16',
+                'updated_at' => '2018-10-27 01:49:43',
             ),
             6 => 
             array (

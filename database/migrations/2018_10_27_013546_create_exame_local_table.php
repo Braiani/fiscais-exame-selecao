@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddExameIdLocalProvaTable extends Migration
+class CreateExameLocalTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class AddExameIdLocalProvaTable extends Migration
      */
     public function up()
     {
-        Schema::table('local_provas', function (Blueprint $table) {
-            $table->integer('exame_id')->unsigned()->after('escola');
+        Schema::create('exame_local', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('exame_id')->unsigned();
+            $table->integer('local_prova_id')->unsigned();
 
             $table->foreign('exame_id')->references('id')->on('exames');
+            $table->foreign('local_prova_id')->references('id')->on('local_provas');
         });
     }
 
@@ -27,9 +30,6 @@ class AddExameIdLocalProvaTable extends Migration
      */
     public function down()
     {
-        Schema::table('local_provas', function (Blueprint $table) {
-            $table->dropForeign(['exame_id']);
-            $table->dropColumn('exame_id');
-        });
+        Schema::dropIfExists('exame_local');
     }
 }

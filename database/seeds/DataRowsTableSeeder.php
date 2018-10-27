@@ -479,7 +479,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 4,
+                'order' => 2,
             ),
             29 => 
             array (
@@ -495,7 +495,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 5,
+                'order' => 3,
             ),
             30 => 
             array (
@@ -511,7 +511,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 6,
+                'order' => 4,
             ),
             31 => 
             array (
@@ -527,7 +527,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 7,
+                'order' => 6,
             ),
             32 => 
             array (
@@ -543,7 +543,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 8,
+                'order' => 7,
             ),
             33 => 
             array (
@@ -622,26 +622,10 @@ class DataRowsTableSeeder extends Seeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => '{"model":"App\\\\Exame","table":"exames","type":"belongsTo","column":"exame_id","key":"id","label":"ano","pivot_table":"bancos","pivot":"0","taggable":"0"}',
+                'details' => '{"model":"App\\\\Exame","table":"exames","type":"belongsToMany","column":"id","key":"id","label":"ano","pivot_table":"exame_local","pivot":"1","taggable":"0"}',
                 'order' => 3,
             ),
             38 => 
-            array (
-                'id' => 41,
-                'data_type_id' => 6,
-                'field' => 'exame_id',
-                'type' => 'text',
-                'display_name' => 'Exame Id',
-                'required' => 1,
-                'browse' => 1,
-                'read' => 1,
-                'edit' => 1,
-                'add' => 1,
-                'delete' => 1,
-                'details' => '{}',
-                'order' => 2,
-            ),
-            39 => 
             array (
                 'id' => 42,
                 'data_type_id' => 7,
@@ -657,7 +641,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 1,
             ),
-            40 => 
+            39 => 
             array (
                 'id' => 43,
                 'data_type_id' => 7,
@@ -673,7 +657,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"display":{"width":"9"}}',
                 'order' => 2,
             ),
-            41 => 
+            40 => 
             array (
                 'id' => 44,
                 'data_type_id' => 7,
@@ -689,7 +673,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"display":{"width":"3"}}',
                 'order' => 3,
             ),
-            42 => 
+            41 => 
             array (
                 'id' => 47,
                 'data_type_id' => 7,
@@ -705,7 +689,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"display":{"width":"6"}}',
                 'order' => 5,
             ),
-            43 => 
+            42 => 
             array (
                 'id' => 48,
                 'data_type_id' => 7,
@@ -721,7 +705,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"display":{"width":"3"}}',
                 'order' => 6,
             ),
-            44 => 
+            43 => 
             array (
                 'id' => 49,
                 'data_type_id' => 7,
@@ -737,7 +721,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"display":{"width":"7"}}',
                 'order' => 9,
             ),
-            45 => 
+            44 => 
             array (
                 'id' => 50,
                 'data_type_id' => 7,
@@ -753,7 +737,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"on":"Sim","off":"N\\u00e3o","checked":"true","display":{"width":"3"}}',
                 'order' => 7,
             ),
-            46 => 
+            45 => 
             array (
                 'id' => 51,
                 'data_type_id' => 7,
@@ -769,7 +753,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"display":{"width":"2"}}',
                 'order' => 8,
             ),
-            47 => 
+            46 => 
             array (
                 'id' => 52,
                 'data_type_id' => 7,
@@ -785,7 +769,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 10,
             ),
-            48 => 
+            47 => 
             array (
                 'id' => 53,
                 'data_type_id' => 7,
@@ -801,7 +785,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"display":{"width":"4"}}',
                 'order' => 12,
             ),
-            49 => 
+            48 => 
             array (
                 'id' => 54,
                 'data_type_id' => 7,
@@ -817,7 +801,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"display":{"width":"4"}}',
                 'order' => 13,
             ),
-            50 => 
+            49 => 
             array (
                 'id' => 55,
                 'data_type_id' => 7,
@@ -833,7 +817,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"display":{"width":"4"}}',
                 'order' => 14,
             ),
-            51 => 
+            50 => 
             array (
                 'id' => 56,
                 'data_type_id' => 7,
@@ -849,7 +833,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 17,
             ),
-            52 => 
+            51 => 
             array (
                 'id' => 57,
                 'data_type_id' => 7,
@@ -865,7 +849,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 18,
             ),
-            53 => 
+            52 => 
             array (
                 'id' => 58,
                 'data_type_id' => 7,
@@ -881,7 +865,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 19,
             ),
-            54 => 
+            53 => 
             array (
                 'id' => 59,
                 'data_type_id' => 7,
@@ -897,7 +881,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 15,
             ),
-            55 => 
+            54 => 
             array (
                 'id' => 60,
                 'data_type_id' => 7,
@@ -913,7 +897,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"model":"App\\\\Banco","table":"bancos","type":"belongsTo","column":"banco_id","key":"id","label":"nome","pivot_table":"bancos","pivot":"0","taggable":"0"}',
                 'order' => 11,
             ),
-            56 => 
+            55 => 
             array (
                 'id' => 61,
                 'data_type_id' => 7,
@@ -929,7 +913,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"model":"App\\\\Exame","table":"exames","type":"belongsToMany","column":"id","key":"id","label":"ano","pivot_table":"candidato_exame","pivot":"1","taggable":"0"}',
                 'order' => 16,
             ),
-            57 => 
+            56 => 
             array (
                 'id' => 62,
                 'data_type_id' => 7,
@@ -944,6 +928,22 @@ class DataRowsTableSeeder extends Seeder
                 'delete' => 1,
                 'details' => '{"display":{"width":"3"}}',
                 'order' => 4,
+            ),
+            57 => 
+            array (
+                'id' => 63,
+                'data_type_id' => 5,
+                'field' => 'exame_belongstomany_local_prova_relationship',
+                'type' => 'relationship',
+                'display_name' => 'local_provas',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{"model":"App\\\\LocalProva","table":"local_provas","type":"belongsToMany","column":"id","key":"id","label":"escola","pivot_table":"exame_local","pivot":"1","taggable":"on"}',
+                'order' => 5,
             ),
         ));
         
