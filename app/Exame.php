@@ -7,6 +7,7 @@ use Carbon\Carbon;
 
 class Exame extends Model
 {
+    protected $guarded = [];
 
     public function scopeFormularioAtivo($query)
     {
@@ -15,6 +16,6 @@ class Exame extends Model
 
     public function localProva()
     {
-        return $this->hasMany('App\LocalProva');
+        return $this->belongsToMany('App\LocalProva', 'exame_local');
     }
 }
