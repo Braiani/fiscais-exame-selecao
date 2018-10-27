@@ -18,4 +18,15 @@ class Candidato extends Model
     protected $dates = ['deleted_at'];
 
     protected $guarded = [];
+
+
+    /**
+     * Relationship with Exame table
+     *
+     * @return relationship
+     **/
+    public function exames()
+    {
+        return $this->belongsToMany('App\Exame')->withPivot('local_prova_id')->withTimestamps();
+    }
 }

@@ -14,8 +14,23 @@ class Exame extends Model
         return $query->whereDate('vencimento_formulario', '>', Carbon::now());
     }
 
+    /**
+     * Relationship with Local_prova table
+     *
+     * @return relationship
+     **/
     public function localProva()
     {
         return $this->belongsToMany('App\LocalProva', 'exame_local');
+    }
+
+    /**
+     * Relationship with Candidato table
+     *
+     * @return relationship
+     **/
+    public function candidatos()
+    {
+        return $this->belongsToMany('App\Candidato');
     }
 }
