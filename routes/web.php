@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 Route::post('cadastrar', 'HomeController@store')->name('cadastrar');
 Route::post('buscar', 'HomeController@buscar')->name('buscar');
 

@@ -7,6 +7,9 @@ use App\Banco;
 use App\Exame;
 use App\Candidato;
 use App\Http\Requests\FormRequestValidation;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -22,14 +25,88 @@ class HomeController extends Controller
 
     public function store(FormRequestValidation $request)
     {
-        return $request;
+        $candidato = $this->buscar($request);
+        if (isset($candidato['error'])) {
+            $candidato = $this->createCandidato($request);
+        }
+        if ($request->hasFile('arquivo')) {
+            $filesPath = $this->salvarArquivo($request);
+            $candidato->arquivo = $filesPath[0]['arquivo'];
+            $candidato->save();
+        }
+        $exames_anteriores = $candidato->exames->count() > 0 ? $candidato->exames->toArray() : null;
+        $ano = $request->ano;
+        $local = (integer) $request->local_prova_id;
+        $sync_data = [];
+
+        if ($exames_anteriores != null) {
+            foreach ($exames_anteriores as $key => $exame) {
+                $sync_data[$exame['id']] = ['local_prova_id' => $exame['pivot']['local_prova_id']];
+            }
+        }
+        $sync_data[$ano] = ['local_prova_id' => $local];
+
+        $candidato->exames()->sync($sync_data);
+
+        $request->session()->flash('sucesso', 'Cadastro realizado/atualizado com sucesso');
+        return redirect()->route('home');
     }
 
-    public function buscar(Request $request)
+    public function createCandidato(Request $request)
+    {
+        $candidato = Candidato::create($request->except(['_token', 'ano', 'local_prova_id']));
+        $filesPath = $this->salvarArquivo($request);
+        $candidato->arquivo = $filesPath[0]['arquivo'];
+        $candidato->save();
+        return $candidato;
+    }
+
+    public function salvarArquivo(Request $request)
+    {
+        $files = Arr::wrap($request->file('arquivo'));
+        $filesPath = [];
+        $path = $this->generatePath();
+
+        foreach ($files as  $file) {
+            $filename = $this->generateFilename($file, $path);
+            $file->storeAs(
+                $path,
+                $filename.'.'.$file->getClientOriginalExtension(),
+                config('voyager.storage.disk', 'public')
+            );
+
+            array_push($filesPath, [
+                'arquivo' => $path.$filename.'.'.$file->getClientOriginalExtension(),
+            ]);
+        }
+        return $filesPath;
+    }
+
+    /**
+     * @return string
+     */
+    protected function generatePath()
+    {
+        return 'candidatos'.DIRECTORY_SEPARATOR.date('FY').DIRECTORY_SEPARATOR;
+    }
+
+    public function generateFilename($file, $path)
+    {
+        $filename = Str::random(20);
+
+        // Make sure the filename does not exist, if it does, just regenerate
+        while (Storage::disk(config('voyager.storage.disk'))->exists($path.$filename.'.'.$file->getClientOriginalExtension())) {
+            $filename = Str::random(20);
+        }
+
+        return $filename;
+    }
+
+    public function buscar(Request $request, $controller = false)
     {
         if (Candidato::where('cpf', $request->cpf)->count() > 0) {
-            return Candidato::where('cpf', $request->cpf)->first();
-        }else{
+            return $controller ? Candidato::where('cpf', $request->cpf)->first() : Candidato::where('cpf', $request->cpf)->with('exames')->first();
+        } else {
             return ['error' => 1];
         }
     }
