@@ -143,6 +143,24 @@ class DataTypesTableSeeder extends Seeder
                 'created_at' => '2018-10-25 03:59:25',
                 'updated_at' => '2018-10-26 04:20:00',
             ),
+            7 => 
+            array (
+                'id' => 8,
+                'name' => 'candidato_exame',
+                'slug' => 'inscricoes',
+                'display_name_singular' => 'Inscrição',
+                'display_name_plural' => 'Inscrições',
+                'icon' => 'voyager-pen',
+                'model_name' => 'App\\CandidatoExame',
+                'policy_name' => NULL,
+                'controller' => NULL,
+                'description' => NULL,
+                'generate_permissions' => 1,
+                'server_side' => 1,
+                'details' => '{"order_column":null,"order_display_column":null}',
+                'created_at' => '2018-10-27 04:28:41',
+                'updated_at' => '2018-10-27 14:40:30',
+            ),
         ));
         
         
