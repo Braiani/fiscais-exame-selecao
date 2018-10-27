@@ -116,9 +116,14 @@
                                             </ul>
                                         </div>
                                         @endif
+                                        @if (Session::has('sucesso'))
+                                        <div class="alert alert-success">
+                                            <p>{{ Session::get('sucesso') }}</p>
+                                        </div>
+                                        @endif
                                     </div>
                                     <div class="row">
-                                        <form action="{{ route('cadastrar') }}" method="POST" class="form">
+                                        <form action="{{ route('cadastrar') }}" method="POST" class="form" enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <fieldset>
                                                 <legend>1. Dados pessoais</legend>
@@ -216,7 +221,7 @@
                                                     <div class="form-group col-sm-3">
                                                         <label for="ano">Ano</label>
                                                         <select id="ano" name="ano" class="form-control">
-                                                            <option value="{{ $exame->ano }}">Exame de seleção {{ $exame->ano }}</option>
+                                                            <option value="{{ $exame->id }}">Exame de seleção {{ $exame->ano }}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-sm-3">

@@ -74,6 +74,8 @@ $(document).ready(function(){
         $('#email').val(data.email);
         $('#arquivo').removeAttr('required');
 
+        preencheLocal(data.exames, $('#ano').val());
+
         if (data.servidor == 1) {
             if (!$('#servidor-1').is(':checked')) {
                 $('#servidor-1').trigger('click');
@@ -84,6 +86,14 @@ $(document).ready(function(){
                 $('#servidor-0').trigger('click');
             }
         }
+    }
+
+    function preencheLocal(data, exame){
+        data.forEach(exames => {
+            if (exames.id == exame) {
+                $('#local_prova_id').val(exames.pivot.local_prova_id);
+            }
+        });
     }
 
     function verificarPreenchimento(id) {
