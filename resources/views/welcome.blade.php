@@ -104,7 +104,6 @@
                                         <h2>
                                             Formulário de Cadastro de interessados em trabalhar na aplicação da prova do Exame de Seleção {{ isset($exame) ? $exame->ano : $data->format('Y') }} <i>campus</i> Campo Grande
                                         </h2>
-                                        <p>O valor da GECC será: {{ isset($exame) ? 'R$ ' . $exame->valor_gecc . ' por hora' : 'Não definido' }}</p>
                                     </div>
                                     <div class="row">
                                         @if ($errors->any())
@@ -171,13 +170,17 @@
                                                             </div>
                                                         </div>
 
+                                                        <div class="form-group col-sm-2 hidden" id="gecc">
+                                                            <p>O valor da GECC será: {{ isset($exame) ? 'R$ ' . $exame->valor_gecc . ' por hora' : 'Não definido' }}</p>
+                                                        </div>
+
                                                         <div class="form-group col-sm-2 @if($errors->has('siape')) has-feedback has-error @endif">
                                                             <label for="siape">SIAPE</label>
                                                             <input id="siape" name="siape" placeholder="SIAPE" value="{{ old('siape') }}"
                                                                 @if(!old('servidor')) readonly @endif class="form-control" type="text">
                                                         </div>
 
-                                                        <div class="form-group col-sm-7 @if($errors->has('email')) has-feedback has-error @endif">
+                                                        <div class="form-group col-sm-5 @if($errors->has('email')) has-feedback has-error @endif">
                                                             <label for="email">E-mail</label>
                                                             <input type="email" name="email" id="email" placeholder="E-mail" class="form-control" value="{{ old('email') }}" >
                                                         </div>

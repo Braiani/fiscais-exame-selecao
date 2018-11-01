@@ -27,9 +27,15 @@ $(document).ready(function(){
             if ($('#siape').attr('readonly')) {
                 $('#siape').removeAttr('readonly');
             }
+            if (!$('#gecc').hasClass('hidden')) {
+                $('#gecc').toggleClass('hidden');
+            }
         }else{
             if (!$('#siape').attr('readonly')) {
                 $('#siape').attr('readonly', true);
+            }
+            if ($('#gecc').hasClass('hidden')) {
+                $('#gecc').toggleClass('hidden');
             }
         }
     });
