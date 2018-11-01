@@ -3,17 +3,18 @@
 namespace App\CustomButtons;
 
 use TCG\Voyager\Actions\AbstractAction;
+use App\Candidato;
 
-class AutorizarButton extends AbstractAction
+class ViewCandidatoAction extends AbstractAction
 {
     public function getTitle()
     {
-        return $this->data->aprovado ? 'Recusar' : 'Aprovar';
+        return __('voyager::generic.view');
     }
 
     public function getIcon()
     {
-        return $this->data->aprovado ? 'voyager-x' : 'voyager-check';
+        return 'voyager-eye';
     }
 
     public function getPolicy()
@@ -23,16 +24,15 @@ class AutorizarButton extends AbstractAction
 
     public function getAttributes()
     {
-        $color = $this->data->aprovado ? 'danger' : 'success';
         return [
-            'class' => 'btn btn-sm btn-'.$color.' pull-right',
-            'style' => 'margin-right: 5px;'
+            'class' => 'btn btn-sm btn-warning pull-right view',
         ];
     }
 
     public function getDefaultRoute()
     {
-        return route('voyager.'.$this->dataType->slug.'.autorizacao', $this->data->{$this->data->getKeyName()});
+        $candidato = Candidato::select('id')->find($this->data->candidato_id);
+        return route('voyager.candidatos.show', $candidato->id);
     }
 
     public function shouldActionDisplayOnDataType()

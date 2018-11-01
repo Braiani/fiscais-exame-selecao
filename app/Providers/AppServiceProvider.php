@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Voyager::addAction(\App\CustomButtons\ViewCandidatoAction::class);
         Voyager::addAction(\App\CustomButtons\AutorizarButton::class);
     }
 
