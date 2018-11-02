@@ -991,7 +991,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 4,
+                'order' => 5,
             ),
             61 => 
             array (
@@ -1007,7 +1007,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 6,
+                'order' => 7,
             ),
             62 => 
             array (
@@ -1023,7 +1023,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 1,
                 'details' => '{"format":"%d\\/%m\\/%Y %R"}',
-                'order' => 9,
+                'order' => 10,
             ),
             63 => 
             array (
@@ -1039,7 +1039,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{"format":"%d\\/%m\\/%Y %R"}',
-                'order' => 10,
+                'order' => 11,
             ),
             64 => 
             array (
@@ -1071,7 +1071,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"model":"App\\\\Exame","table":"exames","type":"belongsTo","column":"exame_id","key":"id","label":"ano","pivot_table":"bancos","pivot":"0","taggable":"0"}',
-                'order' => 5,
+                'order' => 6,
             ),
             66 => 
             array (
@@ -1087,7 +1087,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"model":"App\\\\LocalProva","table":"local_provas","type":"belongsTo","column":"local_prova_id","key":"id","label":"escola","pivot_table":"bancos","pivot":"0","taggable":"0"}',
-                'order' => 7,
+                'order' => 8,
             ),
             67 => 
             array (
@@ -1103,7 +1103,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"on":"Sim","off":"N\\u00e3o","checked":"true"}',
-                'order' => 8,
+                'order' => 9,
             ),
         ));
         
