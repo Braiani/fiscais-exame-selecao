@@ -128,7 +128,7 @@
 										@if (isset($exame->informacoes))
 										<div class="informacoes">{!! $exame->informacoes !!}</div>
 										@else
-										<p>Aqui virá o texto de observação!</p>
+										<p>Aqui será colocado informações inportantes!</p>
 										@endif
 									</fieldset>
 								</div>
