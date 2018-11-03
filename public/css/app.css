@@ -1,9 +1,15 @@
-fieldset{
+fieldset {
     margin-top: 1em;
 }
-input::placeholder{
+
+input::placeholder {
     font-size: 15px;
 }
-input[type="file"]{
+
+input[type="file"] {
     padding: 0 !important;
+}
+
+.info-import {
+    border-bottom: 1px solid black;
 }

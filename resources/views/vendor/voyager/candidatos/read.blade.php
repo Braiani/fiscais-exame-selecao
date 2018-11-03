@@ -18,7 +18,7 @@
             </a>
         @endcan
 
-        <a href="{{ route('voyager.'.$dataType->slug.'.index') }}" class="btn btn-warning">
+        <a href="{{ route('voyager.inscricoes.index', ['key' => 'candidato_id', 'filter' => 'equals', 's' => $dataTypeContent->getKey()]) }}" class="btn btn-warning">
             <span class="glyphicon glyphicon-list"></span>&nbsp;
             {{ __('voyager::generic.return_to_list') }}
         </a>

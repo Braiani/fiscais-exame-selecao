@@ -17,6 +17,6 @@ Route::post('buscar', 'HomeController@buscar')->name('buscar');
 
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('inscricoes/autorizacao/{id}', 'ApproverController@atualizarAprovacao')->name('voyager.inscricoes.autorizacao')->middleware('admin.user');
+    Route::get('inscricoes/autorizacao/{id}', 'ApproverController@atualizarAprovacao')->middleware('admin.user')->name('voyager.inscricoes.autorizacao');
     Voyager::routes();
 });
