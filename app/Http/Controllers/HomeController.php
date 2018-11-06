@@ -49,6 +49,7 @@ class HomeController extends Controller
         $candidato->exames()->sync($sync_data);
 
         $request->session()->flash('sucesso', 'Cadastro realizado/atualizado com sucesso');
+        $request->session()->flash('servidor', $candidato->servidor);
         return redirect()->route('home');
     }
 

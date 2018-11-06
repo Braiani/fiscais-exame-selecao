@@ -119,6 +119,12 @@
 									@if (Session::has('sucesso'))
 									<div class="alert alert-success">
 										<p>{{ Session::get('sucesso') }}</p>
+										@if (Session::get('servidor') == 1)
+											<p>
+												Imprimir e entregar no dia do Exame a declaração 
+												<a href="{{ Storage::disk(config('voyager.storage.disk'))->url('settings/declaracao.pdf') }}" class="alert-link" target="_Blank">anexa</a>.
+											</p>
+										@endif
 									</div>
 									@endif
 								</div>
