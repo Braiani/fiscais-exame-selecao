@@ -26,10 +26,12 @@ $(document).ready(function () {
         if ($(this).val() == 1) {
             if ($('#siape').attr('readonly')) {
                 $('#siape').removeAttr('readonly');
+                $('#arquivo').removeAttr('required');
             }
         } else {
             if (!$('#siape').attr('readonly')) {
                 $('#siape').attr('readonly', true);
+                $('#arquivo').attr('required', true);
             }
         }
     });

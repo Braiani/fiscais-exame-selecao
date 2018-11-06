@@ -29,10 +29,14 @@ class HomeController extends Controller
         if (isset($candidato['error'])) {
             $candidato = $this->createCandidato($request);
         }
-        if ($request->hasFile('arquivo')) {
-            $filesPath = $this->salvarArquivo($request);
-            $candidato->arquivo = $filesPath[0]['arquivo'];
-            $candidato->save();
+        if(!$request->servidor){
+            if ($request->hasFile('arquivo')) {
+                $filesPath = $this->salvarArquivo($request);
+                $candidato->arquivo = $filesPath[0]['arquivo'];
+                $candidato->save();
+            }
+        }else{
+            $candidato->arquivo = '.';
         }
         $exames_anteriores = $candidato->exames->count() > 0 ? $candidato->exames->toArray() : null;
         $ano = $request->ano;

@@ -169,14 +169,14 @@
 
 
 												<div class="form-group col-sm-3 @if($errors->has('telefone')) has-feedback has-error @endif">
-													<label for="telefone">Telefone</label>
-													<input id="telefone" name="telefone" placeholder="Telefone" value="{{ old('telefone') }}" class="form-control" required=""
+													<label for="telefone">Celular</label>
+													<input id="telefone" name="telefone" placeholder="Celular" value="{{ old('telefone') }}" class="form-control" required=""
 													 type="text">
 												</div>
 
 
 												<div class="form-group col-sm-3">
-													<label for="servidor">Servidor Público Federal?</label>
+													<label for="servidor">Servidor do IFMS?</label>
 													<div class="radio @if($errors->has('servidor')) has-feedback has-error @endif">
 														<label for="servidor-1">
                                                                     <input name="servidor" id="servidor-1" value="1" type="radio"
@@ -227,8 +227,8 @@
 
 
 												<div class="form-group col-sm-3 @if($errors->has('conta')) has-feedback has-error @endif">
-													<label for="conta">Conta corrente</label>
-													<input id="conta" name="conta" placeholder="Conta corrente" value="{{ old('conta') }}" class="form-control" required="" type="text">
+													<label for="conta">Conta</label>
+													<input id="conta" name="conta" placeholder="Conta" value="{{ old('conta') }}" class="form-control" required="" type="text">
 												</div>
 											</div>
 										</fieldset>
