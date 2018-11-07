@@ -57,6 +57,7 @@ class HomeController extends Controller
 
         $request->session()->flash('sucesso', 'Cadastro realizado/atualizado com sucesso');
         $request->session()->flash('servidor', $candidato->servidor);
+        $request->session()->flash('compensacao', $request->compensacao);
         return redirect()->route('home');
     }
 
@@ -65,11 +66,17 @@ class HomeController extends Controller
         if (!$request->servidor and $request->filled('siape')) {
             $request->merge(['siape' => null]);
         }
-        
+
+        if ($request->servidor){
+            $request->merge(['arquivo' => '.']);
+        }
+
         $candidato = Candidato::create($request->except(['_token', 'ano', 'local_prova_id', 'compensacao']));
-        $filesPath = $this->salvarArquivo($request);
-        $candidato->arquivo = $filesPath[0]['arquivo'];
-        $candidato->save();
+        if (!$candidato->servidor) {
+            $filesPath = $this->salvarArquivo($request);
+            $candidato->arquivo = $filesPath[0]['arquivo'];
+            $candidato->save();
+        }
         return $candidato;
     }
     
