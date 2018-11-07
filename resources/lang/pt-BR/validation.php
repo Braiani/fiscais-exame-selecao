@@ -103,6 +103,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'compensacao' => [
+            'required_if' => 'O campo :attribute é obrigatório quando for servidor.',
+        ],
+        'siape' => [
+            'required_if' => 'O campo :attribute é obrigatório quando for servidor.',
+        ]
     ],
 
     /*
@@ -119,7 +125,8 @@ return [
     'attributes' => [
         'siape' => 'SIAPE',
         'identidade' => 'documento de identidade',
-        'email' => 'e-mail'
+        'email' => 'e-mail',
+        'compensacao' => 'compensação'
     ],
 
 ];

@@ -156,61 +156,38 @@
 												</div>
 
 
-												<div class="form-group col-sm-3 @if($errors->has('identidade')) has-feedback has-error @endif">
-													<label for="identidade">Documento de Idendidade</label>
-													<input id="identidade" name="identidade" placeholder="Documento de Idendidade" class="form-control" value="{{ old('identidade') }}"
+												<div class="form-group col-sm-2 @if($errors->has('identidade')) has-feedback has-error @endif">
+													<label for="identidade">Documento</label>
+													<input id="identidade" name="identidade" placeholder="Documento" class="form-control" value="{{ old('identidade') }}"
 													 required="" type="text">
 												</div>
 
-												<div class="form-group col-sm-6 @if($errors->has('pis')) has-feedback has-error @endif">
+												<div class="form-group col-sm-2 @if($errors->has('pis')) has-feedback has-error @endif">
 													<label for="pis">PIS</label>
 													<input id="pis" name="pis" placeholder="PIS" class="form-control" value="{{ old('pis') }}" required="" type="text">
 												</div>
 
 
-												<div class="form-group col-sm-3 @if($errors->has('telefone')) has-feedback has-error @endif">
+												<div class="form-group col-sm-2 @if($errors->has('telefone')) has-feedback has-error @endif">
 													<label for="telefone">Celular</label>
 													<input id="telefone" name="telefone" placeholder="Celular" value="{{ old('telefone') }}" class="form-control" required=""
 													 type="text">
 												</div>
 
-
-												<div class="form-group col-sm-3">
-													<label for="servidor">Servidor do IFMS?</label>
-													<div class="radio @if($errors->has('servidor')) has-feedback has-error @endif">
-														<label for="servidor-1">
-                                                                    <input name="servidor" id="servidor-1" value="1" type="radio"
-                                                                        @if(old('servidor')) checked @endif> Sim
-                                                                </label>
-														<label for="servidor-0">
-                                                                    <input name="servidor" id="servidor-0" value="0" type="radio"
-                                                                        @if(old('servidor') != null and !old('servidor')) checked @endif> Não
-                                                                </label>
-													</div>
-												</div>
-
-												<div class="form-group col-sm-2 @if($errors->has('siape')) has-feedback has-error @endif">
-													<label for="siape">SIAPE</label>
-													<input id="siape" name="siape" placeholder="SIAPE" value="{{ old('siape') }}" @if(!old( 'servidor')) readonly @endif class="form-control"
-													 type="text">
-												</div>
-
-												<div class="form-group col-sm-7 @if($errors->has('email')) has-feedback has-error @endif">
+												<div class="form-group col-sm-6 @if($errors->has('email')) has-feedback has-error @endif">
 													<label for="email">E-mail</label>
 													<input type="email" name="email" id="email" placeholder="E-mail" class="form-control" value="{{ old('email') }}">
 												</div>
-											</div>
 
-											<div class="row">
 												<div class="form-group col-sm-4 @if($errors->has('banco_id')) has-feedback has-error @endif">
 													<label for="banco_id">Banco</label>
 													<select id="banco_id" name="banco_id" class="form-control">
-                                                                @foreach ($bancos as $banco)
-                                                                <option value="{{ $banco->id }}" @if(old('banco_id') == $banco->id) selected @endif>
-                                                                    {{ $banco->cod_banco }} - {{ $banco->nome }}
-                                                                </option>
-                                                                @endforeach
-                                                            </select>
+														@foreach ($bancos as $banco)
+														<option value="{{ $banco->id }}" @if(old('banco_id') == $banco->id) selected @endif>
+															{{ $banco->cod_banco }} - {{ $banco->nome }}
+														</option>
+														@endforeach
+													</select>
 												</div>
 
 
@@ -230,6 +207,45 @@
 													<label for="conta">Conta</label>
 													<input id="conta" name="conta" placeholder="Conta" value="{{ old('conta') }}" class="form-control" required="" type="text">
 												</div>
+
+
+												<div class="form-group col-sm-3">
+													<label for="servidor">Servidor do IFMS?</label>
+													<div class="radio @if($errors->has('servidor')) has-feedback has-error @endif">
+														<label for="servidor-1">
+															<input name="servidor" id="servidor-1" value="1" type="radio"
+																@if(old('servidor')) checked @endif> Sim
+														</label>
+														<label for="servidor-0">
+															<input name="servidor" id="servidor-0" value="0" type="radio"
+																@if(old('servidor') != null and !old('servidor')) checked @endif> Não
+														</label>
+													</div>
+												</div>
+
+												<div class="form-group col-sm-2 @if($errors->has('siape')) has-feedback has-error @endif">
+													<label for="siape">SIAPE</label>
+													<input id="siape" name="siape" placeholder="SIAPE" value="{{ old('siape') }}" @if(!old( 'servidor')) readonly @endif class="form-control"
+													 type="text">
+												</div>
+												
+												<div class="form-group col-sm-7 hidden" id="compensacao">
+													<label for="compensacao">Opção de compensação?</label>
+													<div class="radio @if($errors->has('compensacao')) has-feedback has-error @endif">
+														<label for="compensacao-0">
+															<input name="compensacao" id="compensacao-0" value="0" type="radio"
+																@if(old('compensacao') != null and !old('compensacao')) checked @endif> GECC
+														</label>
+														<label for="compensacao-1">
+															<input name="compensacao" id="compensacao-1" value="1" type="radio"
+																@if(old('compensacao')) checked @endif> Recesso de final de ano
+														</label>
+														<label for="compensacao-2">
+															<input name="compensacao" id="compensacao-2" value="2" type="radio"
+																@if(old('compensacao') == 2) checked @endif> Compensar em outro período
+														</label>
+													</div>
+												</div>
 											</div>
 										</fieldset>
 										@if (isset($exame))
@@ -239,20 +255,20 @@
 												<div class="form-group col-sm-3">
 													<label for="ano">Ano</label>
 													<select id="ano" name="ano" class="form-control">
-                                                            <option value="{{ $exame->id }}">Exame de seleção {{ $exame->ano }}</option>
-                                                        </select>
+														<option value="{{ $exame->id }}">Exame de seleção {{ $exame->ano }}</option>
+													</select>
 												</div>
 												<div class="form-group col-sm-3">
 													<label for="local_prova_id">Local da prova</label>
 													<select id="local_prova_id" name="local_prova_id" class="form-control">
-                                                            @foreach ($exame->localProva as $local)
-                                                            <option value="{{ $local->id }}">{{ $local->escola }}</option>
-                                                            @endforeach
-                                                        </select>
+														@foreach ($exame->localProva as $local)
+														<option value="{{ $local->id }}">{{ $local->escola }}</option>
+														@endforeach
+													</select>
 												</div>
 											</div>
 										</fieldset>
-										<fieldset>
+										<fieldset id="arquivo-section">
 											<legend>3. Anexar arquivo</legend>
 											<div class="row">
 												<div class="form-group col-sm-6">

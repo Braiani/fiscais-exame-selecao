@@ -26,10 +26,11 @@ class FormRequestValidation extends FormRequest
         return [
             'nome' => 'required',
             'cpf' => 'required|regex:/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}/',
-            'identidade' => 'required|regex:/[0-9]\s{1}[a-zA-Z]*\/[a-zA-Z]{2}$/',
+            'identidade' => 'required|regex:/^\d+(\s[a-zA-Z]*)?(\/[a-zA-Z]*)?/',
             'pis' => 'required|numeric',
             'telefone' => 'required',
             'siape' => 'required_if:servidor,1|nullable|numeric',
+            'compensacao' => 'required_if:servidor,1|nullable|numeric',
             'email' => 'required|email',
             'banco_id' => 'required|numeric',
             'agencia' => 'required',

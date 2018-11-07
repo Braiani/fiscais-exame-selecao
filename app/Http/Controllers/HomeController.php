@@ -26,29 +26,32 @@ class HomeController extends Controller
     public function store(FormRequestValidation $request)
     {
         $candidato = $this->buscar($request);
-        if (isset($candidato['error'])) {
-            $candidato = $this->createCandidato($request);
-        }
-        if(!$request->servidor){
+        
+        isset($candidato['error']) ? $candidato = $this->createCandidato($request) : $candidato = $this->updateCandidato($request, $candidato);
+
+        if (!$candidato->servidor) {
             if ($request->hasFile('arquivo')) {
                 $filesPath = $this->salvarArquivo($request);
                 $candidato->arquivo = $filesPath[0]['arquivo'];
                 $candidato->save();
             }
-        }else{
-            $candidato->arquivo = '.';
         }
+        
         $exames_anteriores = $candidato->exames->count() > 0 ? $candidato->exames->toArray() : null;
-        $ano = $request->ano;
+        $ano = (integer) $request->ano;
         $local = (integer) $request->local_prova_id;
+        $compensacao = (integer) $request->has('compensacao') ? $request->compensacao : 0;
         $sync_data = [];
 
         if ($exames_anteriores != null) {
             foreach ($exames_anteriores as $key => $exame) {
-                $sync_data[$exame['id']] = ['local_prova_id' => $exame['pivot']['local_prova_id']];
+                $sync_data[$exame['id']] = [
+                    'local_prova_id' => $exame['pivot']['local_prova_id'],
+                    'compensacao' => $exame['pivot']['compensacao']
+                ];
             }
         }
-        $sync_data[$ano] = ['local_prova_id' => $local];
+        $sync_data[$ano] = ['local_prova_id' => $local, 'compensacao' => $compensacao];
 
         $candidato->exames()->sync($sync_data);
 
@@ -59,10 +62,29 @@ class HomeController extends Controller
 
     public function createCandidato(Request $request)
     {
-        $candidato = Candidato::create($request->except(['_token', 'ano', 'local_prova_id']));
+        if (!$request->servidor and $request->filled('siape')) {
+            $request->merge(['siape' => null]);
+        }
+        
+        $candidato = Candidato::create($request->except(['_token', 'ano', 'local_prova_id', 'compensacao']));
         $filesPath = $this->salvarArquivo($request);
         $candidato->arquivo = $filesPath[0]['arquivo'];
         $candidato->save();
+        return $candidato;
+    }
+    
+    public function updateCandidato(Request $request, Candidato $candidato)
+    {
+        if (!$request->servidor and $request->filled('siape')) {
+            $request->merge(['siape' => null]);
+        }
+        
+        $candidato->update($request->except(['_token', 'ano', 'local_prova_id', 'compensacao']));
+        if (!$candidato->servidor) {
+            $filesPath = $this->salvarArquivo($request);
+            $candidato->arquivo = $filesPath[0]['arquivo'];
+            $candidato->save();
+        }
         return $candidato;
     }
 

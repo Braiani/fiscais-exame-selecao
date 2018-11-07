@@ -23,19 +23,34 @@ $(document).ready(function () {
     });
 
     $('input[name="servidor"]').on('change', function () {
-        if ($(this).val() == 1) {
+        verificaServidor(this);
+	});
+	
+	function verificaServidor(element){
+		if ($(element).val() == 1) {
             if ($('#siape').attr('readonly')) {
                 $('#siape').removeAttr('readonly');
-                $('#arquivo').removeAttr('required');
-            }
+			}
+			if ($('#arquivo').attr('required')) {
+				$('#arquivo').removeAttr('required');
+				$('#arquivo-section').addClass('hidden');
+			}
+			if ($('#compensacao').hasClass('hidden')) {
+                $('#compensacao').removeClass('hidden');
+			}
         } else {
             if (!$('#siape').attr('readonly')) {
                 $('#siape').attr('readonly', true);
-                $('#arquivo').attr('required', true);
-            }
+			}
+			if (!$('#arquivo').attr('required')) {
+				$('#arquivo').attr('required', true);
+				$('#arquivo-section').removeClass('hidden');
+			}
+			if (!$('#compensacao').hasClass('hidden')) {
+                $('#compensacao').addClass('hidden');
+			}
         }
-    });
-
+	}
 
     function verificarCpf(numCpf) {
         $.ajax({
@@ -65,6 +80,9 @@ $(document).ready(function () {
     }
 
     function preencherInformacoes(data) {
+		var exames = data.exames; 
+		var compensacao = exames[exames.length - 1].pivot.compensacao;
+		
         $('#nome').val(data.nome);
         $('#identidade').val(data.identidade);
         $('#pis').val(data.pis);
@@ -75,19 +93,30 @@ $(document).ready(function () {
         $('#conta').val(data.conta);
         $('#email').val(data.email);
 
-        preencheLocal(data.exames, $('#ano').val());
+        preencheLocal(exames, $('#ano').val());
 
         if (data.servidor == 1) {
             if (!$('#servidor-1').is(':checked')) {
                 $('#servidor-1').trigger('click');
             }
-            $('#siape').val(data.siape);
+			$('#siape').val(data.siape);
+			selecionarCompensacao(compensacao);
         } else {
             if (!$('#servidor-0').is(':checked')) {
                 $('#servidor-0').trigger('click');
             }
         }
-    }
+	}
+	
+	function selecionarCompensacao(compensacao){
+		if (compensacao == 0 && !$('#compensacao-0').is(':checked')) {
+			$('#compensacao-0').trigger('click');
+		}else if (compensacao == 1 && !$('#compensacao-1').is(':checked')) {
+			$('#compensacao-1').trigger('click');
+		}else if (compensacao == 2 && !$('#compensacao-2').is(':checked')) {
+			$('#compensacao-2').trigger('click');
+		}
+	}
 
     function preencheLocal(data, exame) {
         data.forEach(exames => {
@@ -117,5 +146,6 @@ $(document).ready(function () {
         }
     }
 
-    $('table').toggleClass('table table-bordered table-hover');
+	$('table').toggleClass('table table-bordered table-hover');
+	verificaServidor($('input[name="servidor"]'));
 });

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use TCG\Voyager\Facades\Voyager;
+use Illuminate\Routing\UrlGenerator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,10 +13,11 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(UrlGenerator $url)
     {
         Voyager::addAction(\App\CustomButtons\ViewCandidatoAction::class);
         Voyager::addAction(\App\CustomButtons\AutorizarButton::class);
+        $url->formatScheme('https');
     }
 
     /**
@@ -25,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app['request']->server->set('HTTPS', true);
     }
 }

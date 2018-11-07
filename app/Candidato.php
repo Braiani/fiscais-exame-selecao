@@ -27,6 +27,6 @@ class Candidato extends Model
      **/
     public function exames()
     {
-        return $this->belongsToMany('App\Exame')->withPivot('local_prova_id')->withTimestamps();
+        return $this->belongsToMany('App\Exame')->withPivot(['local_prova_id', 'compensacao'])->withTimestamps();
     }
 }
