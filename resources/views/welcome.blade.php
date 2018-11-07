@@ -230,7 +230,7 @@
 												</div>
 												
 												<div class="form-group col-sm-7 hidden" id="compensacao">
-													<label for="compensacao">Opção de compensação?</label>
+													<label for="compensacao">Opção de contraprestação</label>
 													<div class="radio @if($errors->has('compensacao')) has-feedback has-error @endif">
 														<label for="compensacao-0">
 															<input name="compensacao" id="compensacao-0" value="0" type="radio"

@@ -81,7 +81,11 @@ $(document).ready(function () {
 
     function preencherInformacoes(data) {
 		var exames = data.exames; 
-		var compensacao = exames[exames.length - 1].pivot.compensacao;
+        var compensacao = 0;
+        
+        if (exames.length > 0){
+            compensacao = exames[exames.length - 1].pivot.compensacao;
+        }
 		
         $('#nome').val(data.nome);
         $('#identidade').val(data.identidade);
