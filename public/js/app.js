@@ -46,6 +46,9 @@ $(document).ready(function () {
 				$('#arquivo').attr('required', true);
 				$('#arquivo-section').removeClass('hidden');
 			}
+			if ($('#arquivo-section').hasClass('hidden')) {
+				$('#arquivo-section').removeClass('hidden');
+			}
 			if (!$('#compensacao').hasClass('hidden')) {
                 $('#compensacao').addClass('hidden');
 			}

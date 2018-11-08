@@ -17,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Voyager::addAction(\App\CustomButtons\ViewCandidatoAction::class);
         Voyager::addAction(\App\CustomButtons\AutorizarButton::class);
-        $url->formatScheme('https');
+        if (env('ASSETS_HTTPS', true)) {
+            $url->formatScheme('https');
+        }
     }
 
     /**
@@ -27,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['request']->server->set('HTTPS', true);
+        if (env('ASSETS_HTTPS', true)) {
+            $this->app['request']->server->set('HTTPS', true);
+        }
     }
 }
