@@ -975,7 +975,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 5,
+                'order' => 4,
             ),
             60 => 
             array (
@@ -991,7 +991,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 7,
+                'order' => 6,
             ),
             61 => 
             array (
@@ -1055,7 +1055,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"model":"App\\\\Exame","table":"exames","type":"belongsTo","column":"exame_id","key":"id","label":"ano","pivot_table":"bancos","pivot":"0","taggable":"0"}',
-                'order' => 6,
+                'order' => 5,
             ),
             65 => 
             array (
@@ -1071,7 +1071,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"model":"App\\\\LocalProva","table":"local_provas","type":"belongsTo","column":"local_prova_id","key":"id","label":"escola","pivot_table":"bancos","pivot":"0","taggable":"0"}',
-                'order' => 8,
+                'order' => 7,
             ),
             66 => 
             array (
@@ -1104,6 +1104,22 @@ class DataRowsTableSeeder extends Seeder
                 'delete' => 1,
                 'details' => '{}',
                 'order' => 3,
+            ),
+            68 => 
+            array (
+                'id' => 75,
+                'data_type_id' => 8,
+                'field' => 'compensacao',
+                'type' => 'select_dropdown',
+                'display_name' => 'Compensação',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{"default":"0","options":{"0":"GECC","1":"Final de ano","2":"Descanso"}}',
+                'order' => 8,
             ),
         ));
         
