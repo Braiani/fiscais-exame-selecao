@@ -25,6 +25,7 @@ class InscritosDimmer extends BaseDimmer
     public function run()
     {
         $ultimoExame = Exame::select('id')->formularioAtivo()->first();
+        $ultimoExame = $ultimoExame !== null ? $ultimoExame : Exame::select('id')->latest()->first();
         $count = $ultimoExame !== null ? CandidatoExame::where('exame_id', $ultimoExame->id)->count() : 0;
         $string = trans_choice('dimmer.inscrito', $count);
 
