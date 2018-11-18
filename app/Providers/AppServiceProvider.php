@@ -17,6 +17,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Voyager::addAction(\App\CustomButtons\ViewCandidatoAction::class);
         Voyager::addAction(\App\CustomButtons\AutorizarButton::class);
+        Voyager::addAction(\App\CustomButtons\RejeitarButton::class);
+        Voyager::addAction(\App\CustomButtons\DesfazerButton::class);
+        Voyager::addAction(\App\CustomButtons\ImprimirButton::class);
         if (env('ASSETS_HTTPS', true)) {
             $url->formatScheme('https');
         }

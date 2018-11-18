@@ -4,16 +4,16 @@ namespace App\CustomButtons;
 
 use TCG\Voyager\Actions\AbstractAction;
 
-class AutorizarButton extends AbstractAction
+class DesfazerButton extends AbstractAction
 {
     public function getTitle()
     {
-        return 'Aprovar';
+        return 'Desfazer';
     }
 
     public function getIcon()
     {
-        return 'voyager-check';
+        return 'voyager-refresh';
     }
 
     public function getPolicy()
@@ -24,19 +24,18 @@ class AutorizarButton extends AbstractAction
     public function getAttributes()
     {
         return [
-            'class' => 'btn btn-sm btn-success pull-right aceitar',
-            'style' => 'margin-right: 5px;',
-            'data-id' => $this->data->{$this->data->getKeyName()},
+            'class' => 'btn btn-sm btn-info pull-right',
+            'style' => 'margin-right: 5px;'
         ];
     }
 
     public function getDefaultRoute()
     {
-        return 'javascript:;';
+        return route('voyager.'.$this->dataType->slug.'.analise.desfazer', $this->data->{$this->data->getKeyName()});
     }
 
     public function shouldActionDisplayOnDataType()
     {
-        return $this->dataType->name == 'candidato_exame' and $this->data->aprovado === null;
+        return $this->dataType->name == 'candidato_exame' and $this->data->aprovado !== null;
     }
 }

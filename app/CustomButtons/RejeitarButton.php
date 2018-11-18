@@ -4,16 +4,16 @@ namespace App\CustomButtons;
 
 use TCG\Voyager\Actions\AbstractAction;
 
-class AutorizarButton extends AbstractAction
+class RejeitarButton extends AbstractAction
 {
     public function getTitle()
     {
-        return 'Aprovar';
+        return 'Recusar';
     }
 
     public function getIcon()
     {
-        return 'voyager-check';
+        return 'voyager-x';
     }
 
     public function getPolicy()
@@ -24,15 +24,14 @@ class AutorizarButton extends AbstractAction
     public function getAttributes()
     {
         return [
-            'class' => 'btn btn-sm btn-success pull-right aceitar',
-            'style' => 'margin-right: 5px;',
-            'data-id' => $this->data->{$this->data->getKeyName()},
+            'class' => 'btn btn-sm btn-danger pull-right',
+            'style' => 'margin-right: 5px;'
         ];
     }
 
     public function getDefaultRoute()
     {
-        return 'javascript:;';
+        return route('voyager.'.$this->dataType->slug.'.analise.rejeitar', $this->data->{$this->data->getKeyName()});
     }
 
     public function shouldActionDisplayOnDataType()

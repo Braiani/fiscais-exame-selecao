@@ -254,7 +254,38 @@
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+	</div><!-- /.modal -->
+	
+	{{-- Single aceitar modal --}}
+    <div class="modal modal-success fade" tabindex="-1" id="aceitar_modal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="fechar modal"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title"><i class="voyager-question"></i> Qual função será exercida por esse fiscal?</h4>
+					</div>
+					<div class="modal-body">
+						<form action="#" id="aceitar_form" method="POST">
+							{{ csrf_field() }}
+							<div class="container-fluid">
+								<select name="funcao" class="select form-control">
+									<option value="coord">Coordenação</option>
+									<option value="chefe">Chefe de sala</option>
+									<option value="sala">Fiscal de sala</option>
+									<option value="banheiro">Fiscal de banheiro</option>
+									<option value="corredor">Fiscal de corredor</option>
+									<option value="outro">Outro</option>
+								</select>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" form="aceitar_form" class="btn btn-success pull-right aceitar-confirm">Aceitar</button>
+						<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 @stop
 
 @section('css')
@@ -302,6 +333,11 @@
         $('td').on('click', '.delete', function (e) {
             $('#delete_form')[0].action = '{{ route('voyager.'.$dataType->slug.'.destroy', ['id' => '__id']) }}'.replace('__id', $(this).data('id'));
             $('#delete_modal').modal('show');
+		});
+		
+		$('td').on('click', '.aceitar', function (e) {
+            $('#aceitar_form')[0].action = '{{ route('voyager.'.$dataType->slug.'.analise.aceitar', ['id' => '__id']) }}'.replace('__id', $(this).data('id'));
+            $('#aceitar_modal').modal('show');
         });
     </script>
 @stop

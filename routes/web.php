@@ -17,6 +17,9 @@ Route::post('buscar', 'HomeController@buscar')->name('buscar');
 
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('inscricoes/autorizacao/{id}', 'ApproverController@atualizarAprovacao')->middleware('admin.user')->name('voyager.inscricoes.autorizacao');
+    Route::post('inscricoes/analise/{id}/aceitar', 'ApproverController@aprovarInscricao')->middleware('admin.user')->name('voyager.inscricoes.analise.aceitar');
+    Route::get('inscricoes/analise/{id}/rejeitar', 'ApproverController@rejeitarInscricao')->middleware('admin.user')->name('voyager.inscricoes.analise.rejeitar');
+    Route::get('inscricoes/analise/{id}/desfazer', 'ApproverController@desfazerAnaliseInscricao')->middleware('admin.user')->name('voyager.inscricoes.analise.desfazer');
+    Route::get('inscricoes/analise/{id}/imprimir', 'ApproverController@imprimirFormularioInscricao')->middleware('admin.user')->name('voyager.inscricoes.analise.imprimir');
     Voyager::routes();
 });
