@@ -1007,7 +1007,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 1,
                 'details' => '{"format":"%d\\/%m\\/%Y %R"}',
-                'order' => 10,
+                'order' => 11,
             ),
             62 => 
             array (
@@ -1023,7 +1023,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{"format":"%d\\/%m\\/%Y %R"}',
-                'order' => 11,
+                'order' => 12,
             ),
             63 => 
             array (
@@ -1120,6 +1120,22 @@ class DataRowsTableSeeder extends Seeder
                 'delete' => 1,
                 'details' => '{"default":"0","options":{"0":"GECC","1":"Final de ano","2":"Descanso"}}',
                 'order' => 8,
+            ),
+            69 => 
+            array (
+                'id' => 76,
+                'data_type_id' => 8,
+                'field' => 'funcao',
+                'type' => 'select_dropdown',
+                'display_name' => 'Função',
+                'required' => 1,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{"default":"","options":{"":"","coord":"Coordena\\u00e7\\u00e3o","chefe":"Chefe de sala","sala":"Fiscal de sala","corredor":"Fiscal de corredor","banheiro":"Fiscal de banheiro","outro":"Outro"}}',
+                'order' => 10,
             ),
         ));
         
