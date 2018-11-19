@@ -16,7 +16,7 @@ class ApproverController extends Controller
         $inscricao->save();
         
         $destinatario = $inscricao->candidato->email;
-        $assunto = 'Aprovação para trabalhar no Exame de Seleção ' . $inscricao->exame->ano;
+        $assunto = 'Aprovação para trabalhar no Exame de Seleção ' . $inscricao->exame->ano . ' - ' . $inscricao->candidato->nome;
         Mail::send('emails.aprovado', ['inscricao' => $inscricao], function ($message) use ($destinatario, $assunto) {
             $message->from('processoseletivo.cg@ifms.edu.br', 'Exame de Seleção CG');
             $message->to($destinatario);

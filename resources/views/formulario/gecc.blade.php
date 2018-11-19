@@ -871,9 +871,9 @@
 					</p>
 					<p class="c2 c9">
 						<span class="c11">Início</span>
-						<span class="c20">______:______</span>
+						<span class="c20">09:00</span>
 						<span class="c11">Término </span>
-						<span class="c7">______:______</span>
+						<span class="c7">10:00</span>
 					</p>
 					<p class="c2 c8">
 						<span class="c7"></span>
@@ -913,7 +913,7 @@
 				</td>
 				<td class="c1" colspan="1" rowspan="1">
 					<p class="c2 c9">
-						<span class="c11">6h</span>
+						<span class="c11">_____h</span>
 					</p>
 				</td>
 			</tr>

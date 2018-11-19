@@ -25,10 +25,13 @@
 	}
 @endphp
 <p>Prezado(a) {{ $inscricao->candidato->nome }},</p>
-<p>Você foi selecionado para atuar como colaborador ({{ $func }}) no Exame de Seleção {{ $inscricao->exame->ano }} - IFMS <em>Campus</em> Campo Grande.</p>
-<p>A Comissão Local do Exame de Seleção {{ $inscricao->exame->ano }} - IFMS <em>Campus</em> Campo Grande vem, por meio deste comunicado, informar que o treinamento para <strong><u>TODOS OS COLABORADORES</u></strong> que irão trabalhar na aplicação do Exame de Seleção será realizado no <strong>SÁBADO</strong>, dia<strong> <u>25/11/2018 às 09h00</u></strong>, no <strong>ANFITEATRO DO BLOCO MULTIUSO DA UNIVERSIDADE FEDERAL DO MATO GROSSO DO SUL - UFMS</strong>, situada na Cidade Universitária, Av. Costa e Silva - Pioneiros.</p>
-<p>Ressaltamos que a ausência no treinamento implicará na exclusão do colaborador da aplicação do exame.</p>
-<br>
-<p>Para maiores esclarecimentos nos colocamos à disposição nos seguintes e-mails:</p>
-<p><a href="mailto:aline.zotelli@ifms.edu.br">aline.zotelli@ifms.edu.br</a></p>
-<p><a href="mailto:elton.valiente@ifms.edu.br">elton.valiente@ifms.edu.br</a></p>
+<p>Você foi selecionado para atuar como colaborador, na função de {{ $func }}, no Exame de Seleção {{ $inscricao->exame->ano }} - IFMS <em>Campus</em> Campo Grande.</p>
+<p>
+	A Comissão Local do Exame de Seleção {{ $inscricao->exame->ano }} - IFMS <em>Campus</em> Campo Grande <strong>CONVOCA</strong> V. Sa. para o treinamento de 
+	<u>COLABORADORES</u> que será realizado no <strong>SÁBADO</strong>, dia<strong> <u>25/11/2018, às 09h00</u></strong>, no 
+	<strong>ANFITEATRO DO BLOCO MULTIUSO DA UNIVERSIDADE FEDERAL DO MATO GROSSO DO SUL - UFMS</strong>, situada na Cidade Universitária, Av. Costa e Silva - Pioneiros.
+</p>
+<p>Ressaltamos que a ausência no treinamento implicará na <strong>EXCLUSÃO</strong> do colaborador na aplicação do exame.</p>
+<p>Em caso de desistência na participação como colaborador, ou necessitando de outros esclarecimentos, favor responder a este e-mail o mais breve possível.</p>
+<p>Atenciosamente,</p>
+<p>Comissão Local do Exame de Seleção {{ $inscricao->exame->ano }}</p>
