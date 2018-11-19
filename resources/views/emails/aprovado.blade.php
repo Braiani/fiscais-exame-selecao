@@ -17,7 +17,7 @@
 			$func = 'fiscal de corredor';
 			break;
 		case 'outro':
-			$func = 'função a ser definida pela comissão';
+			$func = '(função a ser definida pela comissão)';
 			break;
 		default:
 			$func = '';
