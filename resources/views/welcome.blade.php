@@ -232,10 +232,6 @@
 												<div class="form-group col-sm-7 hidden" id="compensacao">
 													<label for="compensacao">Opção de contraprestação</label>
 													<div class="radio @if($errors->has('compensacao')) has-feedback has-error @endif">
-														<label for="compensacao-0">
-															<input name="compensacao" id="compensacao-0" value="0" type="radio"
-																@if(old('compensacao') != null and !old('compensacao')) checked @endif> GECC
-														</label>
 														<label for="compensacao-1">
 															<input name="compensacao" id="compensacao-1" value="1" type="radio"
 																@if(old('compensacao')) checked @endif> Recesso de final de ano
