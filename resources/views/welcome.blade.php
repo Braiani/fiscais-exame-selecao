@@ -1,4 +1,5 @@
-@php $data = \Carbon\Carbon::now(); 
+@php
+$data = new \Carbon\Carbon('next year');
 @endphp
 <html>
 
@@ -134,10 +135,11 @@
 										@if (isset($exame->informacoes))
 										<div class="informacoes">{!! $exame->informacoes !!}</div>
 										@else
-										<p>Aqui será colocado informações inportantes!</p>
+										<p>O formulário não está aceitando novas inscrições! Agradecemos o interesse em se inscrever, mas já atingimos a data limite para inscrição</p>
 										@endif
 									</fieldset>
 								</div>
+								@if(isset($exame))
 								<div class="row">
 									<form action="{{ route('cadastrar') }}" method="POST" class="form" enctype="multipart/form-data">
 										{{ csrf_field() }}
@@ -244,7 +246,6 @@
 												</div>
 											</div>
 										</fieldset>
-										@if (isset($exame))
 										<fieldset>
 											<legend>2. Dados da aplicação da prova</legend>
 											<div class="row">
@@ -276,10 +277,10 @@
 												</div>
 											</div>
 										</fieldset>
-										@endif
 										<button type="submit" class="btn">Enviar cadastro</button>
 									</form>
 								</div>
+								@endif
 							</div>
 						</div>
 					</div>
