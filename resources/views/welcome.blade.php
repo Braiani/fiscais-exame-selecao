@@ -17,6 +17,9 @@ $data = new \Carbon\Carbon('next year');
 
 	<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
 
+	<!--  Select2 -->
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+
 	<!-- Theme CSS - only for preview, will be removed in rules and added in CSS registry -->
 	<link media="all" href="css/main.css" type="text/css" rel="stylesheet" id="main-css">
 	<link media="all" href="css/style.css" type="text/css" rel="stylesheet">
@@ -116,13 +119,13 @@ $data = new \Carbon\Carbon('next year');
 											@endforeach
 										</ul>
 									</div>
-									@endif 
+									@endif
 									@if (Session::has('sucesso'))
 									<div class="alert alert-success">
 										<p>{{ Session::get('sucesso') }}</p>
 										@if (Session::get('servidor') == 1 and Session::get('compensacao') != false)
 											<p>
-												Imprimir e entregar no dia do Exame a declaração 
+												Imprimir e entregar no dia do Exame a declaração
 												<a href="{{ Storage::disk(config('voyager.storage.disk'))->url('settings/declaracao.pdf') }}" class="alert-link" target="_Blank">anexa</a>.
 											</p>
 										@endif
@@ -183,7 +186,7 @@ $data = new \Carbon\Carbon('next year');
 
 												<div class="form-group col-sm-4 @if($errors->has('banco_id')) has-feedback has-error @endif">
 													<label for="banco_id">Banco</label>
-													<select id="banco_id" name="banco_id" class="form-control">
+													<select id="banco_id" name="banco_id" class="form-control select2">
 														@foreach ($bancos as $banco)
 														<option value="{{ $banco->id }}" @if(old('banco_id') == $banco->id) selected @endif>
 															{{ $banco->cod_banco }} - {{ $banco->nome }}
@@ -230,7 +233,7 @@ $data = new \Carbon\Carbon('next year');
 													<input id="siape" name="siape" placeholder="SIAPE" value="{{ old('siape') }}" @if(!old( 'servidor')) readonly @endif class="form-control"
 													 type="text">
 												</div>
-												
+
 												<div class="form-group col-sm-7 hidden" id="compensacao">
 													<label for="compensacao">Opção de contraprestação</label>
 													<div class="radio @if($errors->has('compensacao')) has-feedback has-error @endif">
@@ -241,6 +244,10 @@ $data = new \Carbon\Carbon('next year');
 														<label for="compensacao-2">
 															<input name="compensacao" id="compensacao-2" value="2" type="radio"
 																@if(old('compensacao') == 2) checked @endif> Compensar em outro período
+														</label>
+														<label for="compensacao-3">
+															<input name="compensacao" id="compensacao-3" value="0" type="radio"
+																   @if(old('compensacao') == 2) checked @endif> GECC
 														</label>
 													</div>
 												</div>
@@ -317,6 +324,7 @@ $data = new \Carbon\Carbon('next year');
 		<script src="{{ asset('js/jquery.inputmask.bundle.js') }}"></script>
 		<script src="{{ asset('js/blockUI.js') }}"></script>
 		<script src="{{ asset('js/app.js') }}"></script>
+		<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 		<script>
 			$buscarCpf = "{{ route('buscar') }}";
 		</script>

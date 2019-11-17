@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $("#banco_id").select2();
+
     $("#cpf").inputmask("999.999.999-99", {
         "onincomplete": function () {
             verificarPreenchimento("#cpf");
@@ -25,7 +27,7 @@ $(document).ready(function () {
     $('input[name="servidor"]').on('change', function () {
         verificaServidor(this);
 	});
-	
+
 	function verificaServidor(element){
 		if ($(element).val() == 1) {
             if ($('#siape').attr('readonly')) {
@@ -83,13 +85,13 @@ $(document).ready(function () {
     }
 
     function preencherInformacoes(data) {
-		var exames = data.exames; 
+		var exames = data.exames;
         var compensacao = 0;
-        
+
         if (exames.length > 0){
             compensacao = exames[exames.length - 1].pivot.compensacao;
         }
-		
+
         $('#nome').val(data.nome);
         $('#identidade').val(data.identidade);
         $('#pis').val(data.pis);
@@ -99,6 +101,8 @@ $(document).ready(function () {
         $('#operacao').val(data.operacao);
         $('#conta').val(data.conta);
         $('#email').val(data.email);
+
+        $("#banco_id").trigger('change');
 
         preencheLocal(exames, $('#ano').val());
 
@@ -114,7 +118,7 @@ $(document).ready(function () {
             }
         }
 	}
-	
+
 	function selecionarCompensacao(compensacao){
 		if (compensacao == 0 && !$('#compensacao-0').is(':checked')) {
 			$('#compensacao-0').trigger('click');
