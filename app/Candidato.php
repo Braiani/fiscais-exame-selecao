@@ -23,8 +23,8 @@ class Candidato extends Model
     /**
      * Relationship with Exame table
      *
-     * @return relationship
-     **/
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function exames()
     {
         return $this->belongsToMany('App\Exame')->withPivot(['local_prova_id', 'compensacao'])->withTimestamps();
