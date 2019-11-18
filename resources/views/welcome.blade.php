@@ -241,7 +241,7 @@ $data = new \Carbon\Carbon('next year');
 														</label>
 														<label for="compensacao-3">
 															<input name="compensacao" id="compensacao-3" value="0" type="radio"
-																   @if(old('compensacao') == 2) checked @endif> GECC
+																   @if(old('compensacao') == 0) checked @endif> GECC
 														</label>
 													</div>
 												</div>

@@ -2,31 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Banco;
-use App\Exame;
 use App\Candidato;
 use App\Http\Requests\FormRequestValidation;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
-    public function index()
-    {
-        $bancos = Banco::orderBy('cod_banco', 'asc')->get();
-        $exame = Exame::formularioAtivo()->latest()->first();
-        return view('welcome')->with([
-            'bancos' => $bancos,
-            'exame' => $exame
-            ]);
-    }
-
     public function store(FormRequestValidation $request)
     {
         $candidato = $this->buscar($request);
-        
+
         isset($candidato['error']) ? $candidato = $this->createCandidato($request) : $candidato = $this->updateCandidato($request, $candidato);
 
         if (!$candidato->servidor) {
@@ -36,11 +24,11 @@ class HomeController extends Controller
                 $candidato->save();
             }
         }
-        
+
         $exames_anteriores = $candidato->exames->count() > 0 ? $candidato->exames->toArray() : null;
-        $ano = (integer) $request->ano;
-        $local = (integer) $request->local_prova_id;
-        $compensacao = (integer) $request->has('compensacao') ? $request->compensacao : 0;
+        $ano = (integer)$request->ano;
+        $local = (integer)$request->local_prova_id;
+        $compensacao = (integer)$request->has('compensacao') ? $request->compensacao : 0;
         $sync_data = [];
 
         if ($exames_anteriores != null) {
@@ -67,7 +55,7 @@ class HomeController extends Controller
             $request->merge(['siape' => null]);
         }
 
-        if ($request->servidor){
+        if ($request->servidor) {
             $request->merge(['arquivo' => '.']);
         }
 
@@ -79,13 +67,13 @@ class HomeController extends Controller
         }
         return $candidato;
     }
-    
+
     public function updateCandidato(Request $request, Candidato $candidato)
     {
         if (!$request->servidor and $request->filled('siape')) {
             $request->merge(['siape' => null]);
         }
-        
+
         $candidato->update($request->except(['_token', 'ano', 'local_prova_id', 'compensacao']));
         if (!$candidato->servidor) {
             $filesPath = $this->salvarArquivo($request);
@@ -101,16 +89,16 @@ class HomeController extends Controller
         $filesPath = [];
         $path = $this->generatePath();
 
-        foreach ($files as  $file) {
+        foreach ($files as $file) {
             $filename = $this->generateFilename($file, $path);
             $file->storeAs(
                 $path,
-                $filename.'.'.$file->getClientOriginalExtension(),
+                $filename . '.' . $file->getClientOriginalExtension(),
                 config('voyager.storage.disk', 'public')
             );
 
             array_push($filesPath, [
-                'arquivo' => $path.$filename.'.'.$file->getClientOriginalExtension(),
+                'arquivo' => $path . $filename . '.' . $file->getClientOriginalExtension(),
             ]);
         }
         return $filesPath;
@@ -121,7 +109,7 @@ class HomeController extends Controller
      */
     protected function generatePath()
     {
-        return 'candidatos'.DIRECTORY_SEPARATOR.date('FY').DIRECTORY_SEPARATOR;
+        return 'candidatos' . DIRECTORY_SEPARATOR . date('FY') . DIRECTORY_SEPARATOR;
     }
 
     public function generateFilename($file, $path)
@@ -129,7 +117,7 @@ class HomeController extends Controller
         $filename = Str::random(20);
 
         // Make sure the filename does not exist, if it does, just regenerate
-        while (Storage::disk(config('voyager.storage.disk'))->exists($path.$filename.'.'.$file->getClientOriginalExtension())) {
+        while (Storage::disk(config('voyager.storage.disk'))->exists($path . $filename . '.' . $file->getClientOriginalExtension())) {
             $filename = Str::random(20);
         }
 

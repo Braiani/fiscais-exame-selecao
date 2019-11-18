@@ -14,6 +14,11 @@ class SubscriptionController extends Controller
         $this->subscriptionService = $subscriptionService;
     }
 
+    public function index()
+    {
+        return $this->subscriptionService->index();
+    }
+
     public function banks(Request $request)
     {
         return $this->subscriptionService->getBanks($request->all());
