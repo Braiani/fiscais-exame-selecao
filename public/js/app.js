@@ -1,5 +1,37 @@
 $(document).ready(function () {
-    $("#banco_id").select2();
+    $("#banco_id").select2({
+        templateResult: formatState,
+        placeholder: "Selecione o Banco",
+        ajax: {
+            delay: 250,
+            url: '/api/bancos',
+            data: function (params) {
+                var query = {
+                    q: params.term,
+                    page: params.page || 1
+                };
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+
+                return {
+                    results: data.results.data,
+                    pagination: {
+                        more: data.results.next_page_url !== null,
+                    }
+                };
+            }
+        },
+    });
+
+    function formatState (bank) {
+        var cod = bank.cod_banco !== null ? bank.cod_banco : ' ';
+        var $bank = $(
+            '<span>'+ cod + ' - ' + bank.text +'</span><br>'
+        );
+        return $bank;
+    };
 
     $("#cpf").inputmask("999.999.999-99", {
         "onincomplete": function () {
@@ -102,7 +134,7 @@ $(document).ready(function () {
         $('#conta').val(data.conta);
         $('#email').val(data.email);
 
-        $("#banco_id").trigger('change');
+        preencherBanco(data.banco_id);
 
         preencheLocal(exames, $('#ano').val());
 
@@ -118,6 +150,24 @@ $(document).ready(function () {
             }
         }
 	}
+
+	function preencherBanco(banco) {
+        var bancoSelect = $('#banco_id');
+        $.ajax({
+            type: 'GET',
+            url: '/api/bancos/' + banco
+        }).then(function (data) {
+            var option = new Option(data.nome, data.id, true, true);
+            bancoSelect.append(option).trigger('change');
+
+            bancoSelect.trigger({
+                type: 'select2:select',
+                params: {
+                    data: data
+                }
+            });
+        });
+    }
 
 	function selecionarCompensacao(compensacao){
 		if (compensacao == 0 && !$('#compensacao-0').is(':checked')) {

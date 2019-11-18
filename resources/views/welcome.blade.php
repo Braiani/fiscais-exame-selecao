@@ -18,7 +18,7 @@ $data = new \Carbon\Carbon('next year');
 	<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
 
 	<!--  Select2 -->
-	<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+	<link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
 
 	<!-- Theme CSS - only for preview, will be removed in rules and added in CSS registry -->
 	<link media="all" href="css/main.css" type="text/css" rel="stylesheet" id="main-css">
@@ -186,13 +186,7 @@ $data = new \Carbon\Carbon('next year');
 
 												<div class="form-group col-sm-4 @if($errors->has('banco_id')) has-feedback has-error @endif">
 													<label for="banco_id">Banco</label>
-													<select id="banco_id" name="banco_id" class="form-control select2">
-														@foreach ($bancos as $banco)
-														<option value="{{ $banco->id }}" @if(old('banco_id') == $banco->id) selected @endif>
-															{{ $banco->cod_banco }} - {{ $banco->nome }}
-														</option>
-														@endforeach
-													</select>
+													<select id="banco_id" name="banco_id" class="form-control select2"></select>
 												</div>
 
 
@@ -324,7 +318,7 @@ $data = new \Carbon\Carbon('next year');
 		<script src="{{ asset('js/jquery.inputmask.bundle.js') }}"></script>
 		<script src="{{ asset('js/blockUI.js') }}"></script>
 		<script src="{{ asset('js/app.js') }}"></script>
-		<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+		<script src="{{ asset('js/select2.full.min.js') }}"></script>
 		<script>
 			$buscarCpf = "{{ route('buscar') }}";
 		</script>

@@ -3,7 +3,12 @@
 namespace App\Repositories;
 
 
-class SubscriptionRepository
-{
+use App\Candidato;
 
+class SubscriptionRepository extends BaseRepository
+{
+    public function model()
+    {
+        return Candidato::class;
+    }
 }
