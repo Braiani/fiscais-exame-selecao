@@ -71,17 +71,17 @@
                                         @endif
                                         <th>
                                             @if ($isServerSide)
-                                                <a href="{{ $row->sortByUrl() }}">
+                                                <a href="{{ $row->sortByUrl($orderBy, $sortOrder) }}">
                                             @endif
                                             {{ $row->display_name }}
-                                            @if ($isServerSide)
-                                                @if ($row->isCurrentSortField())
-                                                    @if (!isset($_GET['sort_order']) || $_GET['sort_order'] == 'asc')
-                                                        <i class="voyager-angle-up pull-right"></i>
-                                                    @else
-                                                        <i class="voyager-angle-down pull-right"></i>
-                                                    @endif
-                                                @endif
+                                                    @if ($isServerSide)
+                                                        @if ($row->isCurrentSortField($orderBy))
+                                                            @if ($sortOrder == 'asc')
+                                                                <i class="voyager-angle-up pull-right"></i>
+                                                            @else
+                                                                <i class="voyager-angle-down pull-right"></i>
+                                                            @endif
+                                                        @endif
                                                 </a>
                                             @endif
                                         </th>
@@ -255,7 +255,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-	
+
 	{{-- Single aceitar modal --}}
     <div class="modal modal-success fade" tabindex="-1" id="aceitar_modal" role="dialog">
 			<div class="modal-dialog">
@@ -334,7 +334,7 @@
             $('#delete_form')[0].action = '{{ route('voyager.'.$dataType->slug.'.destroy', ['id' => '__id']) }}'.replace('__id', $(this).data('id'));
             $('#delete_modal').modal('show');
 		});
-		
+
 		$('td').on('click', '.aceitar', function (e) {
             $('#aceitar_form')[0].action = '{{ route('voyager.'.$dataType->slug.'.analise.aceitar', ['id' => '__id']) }}'.replace('__id', $(this).data('id'));
             $('#aceitar_modal').modal('show');

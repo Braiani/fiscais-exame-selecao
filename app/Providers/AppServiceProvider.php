@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\CustomButtons\AutorizarButton;
+use App\CustomButtons\DesfazerButton;
+use App\CustomButtons\ImprimirButton;
+use App\CustomButtons\RejeitarButton;
+use App\CustomButtons\ViewCandidatoAction;
 use Illuminate\Support\ServiceProvider;
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Routing\UrlGenerator;
@@ -15,11 +20,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url)
     {
-        Voyager::addAction(\App\CustomButtons\ViewCandidatoAction::class);
-        Voyager::addAction(\App\CustomButtons\AutorizarButton::class);
-        Voyager::addAction(\App\CustomButtons\RejeitarButton::class);
-        Voyager::addAction(\App\CustomButtons\DesfazerButton::class);
-        Voyager::addAction(\App\CustomButtons\ImprimirButton::class);
+        Voyager::addAction(ViewCandidatoAction::class);
+        Voyager::addAction(AutorizarButton::class);
+        Voyager::addAction(RejeitarButton::class);
+        Voyager::addAction(DesfazerButton::class);
+        Voyager::addAction(ImprimirButton::class);
         if (env('ASSETS_HTTPS', true)) {
             $url->formatScheme('https');
         }
